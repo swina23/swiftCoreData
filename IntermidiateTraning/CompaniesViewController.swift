@@ -8,11 +8,18 @@
 
 import UIKit
 
-class ViewController: UITableViewController {
+class CompaniesViewController: UITableViewController {
 
+    let companies = [
+            Company(name: "Apple", founded: Date()),
+            Company(name: "Google", founded: Date()),
+            Company(name: "Facebook", founded: Date())
+    ]
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        
         view.backgroundColor = .white
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(handleConpany))
@@ -23,11 +30,22 @@ class ViewController: UITableViewController {
         tableView.tableFooterView = UIView()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
         
-        setNavigationStyleUp()
+        navigationItem.title = "Conpanies"
+        
+        
     }
     
     @objc func handleConpany() {
         print("add company...")
+        
+        let createCompanyController = CreateCompanyController()
+        
+        let navController = CustomNavigationController(rootViewController: createCompanyController)
+        
+        
+        present(navController, animated: true, completion: nil)
+        
+        
     }
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView()
@@ -42,27 +60,17 @@ class ViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath)
         
         cell.backgroundColor = .tealColor
-        cell.textLabel?.text = "COMPANY NAME.."
+        
+        let company = companies[indexPath.row]
+        
+        cell.textLabel?.text = company.name
         cell.textLabel?.textColor = .white
         cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         return cell
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 8
+        return companies.count
     }
-    
-    func setNavigationStyleUp () {
-        navigationItem.title = "Conpanies"
-        navigationController?.navigationBar.isTranslucent = false
-        
-        navigationController?.navigationBar.barTintColor = .lightRed
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
-        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
-        
-    }
-
-
 }
 
