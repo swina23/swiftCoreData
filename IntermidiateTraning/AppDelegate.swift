@@ -34,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow()
         window?.makeKeyAndVisible()
         
-        let conpaniesController = CompaniesViewController()
+        let conpaniesController = CompaniesController()
 //        dummyViewcontroller.view.backgroundColor = .blue
         let navController = CustomNavigationController(rootViewController: conpaniesController)
         window?.rootViewController = navController

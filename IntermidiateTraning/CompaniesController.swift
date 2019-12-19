@@ -8,21 +8,31 @@
 
 import UIKit
 
-class CompaniesViewController: UITableViewController {
+class CompaniesController: UITableViewController {
 
-    let companies = [
+    var companies = [
             Company(name: "Apple", founded: Date()),
             Company(name: "Google", founded: Date()),
             Company(name: "Facebook", founded: Date())
     ]
     
-    
+    func addCompany(conpany: Company) {
+//        let tesla = Company(name: "Tesla", founded: Date())
+        
+        //1 modify your array
+        companies.append(conpany)
+        //2 insert a new index path into tableview
+        let newIndexPath = IndexPath(row: companies.count - 1 , section: 0)
+        tableView.insertRows(at: [newIndexPath], with: .automatic)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .white
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(handleConpany))
+//        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "test add", style: .plain, target: self, action: #selector(addCompany))
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(handleAddConpany))
         
         tableView.backgroundColor = .darkBlue
 //        tableView.separatorStyle = .none
@@ -35,18 +45,20 @@ class CompaniesViewController: UITableViewController {
         
     }
     
-    @objc func handleConpany() {
+    @objc func handleAddConpany() {
         print("add company...")
         
         let createCompanyController = CreateCompanyController()
         
         let navController = CustomNavigationController(rootViewController: createCompanyController)
         
+        createCompanyController.companiesController = self
         
         present(navController, animated: true, completion: nil)
         
         
     }
+    
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView()
         view.backgroundColor = .lightBlue
@@ -56,6 +68,7 @@ class CompaniesViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
     }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath)
         
