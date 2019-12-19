@@ -12,6 +12,7 @@
 		E5E58B0923AB5287009DAB42 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5E58B0723AB5287009DAB42 /* Main.storyboard */; };
 		E5E58B0B23AB528A009DAB42 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5E58B0A23AB528A009DAB42 /* Assets.xcassets */; };
 		E5E58B0E23AB528A009DAB42 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5E58B0C23AB528A009DAB42 /* LaunchScreen.storyboard */; };
+		E5E58B1623AB6915009DAB42 /* UIColor+theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E58B1523AB6915009DAB42 /* UIColor+theme.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		E5E58B0A23AB528A009DAB42 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E5E58B0D23AB528A009DAB42 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E5E58B0F23AB528A009DAB42 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E5E58B1523AB6915009DAB42 /* UIColor+theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+theme.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 			children = (
 				E5E58B0323AB5287009DAB42 /* AppDelegate.swift */,
 				E5E58B0523AB5287009DAB42 /* ViewController.swift */,
+				E5E58B1523AB6915009DAB42 /* UIColor+theme.swift */,
 				E5E58B0723AB5287009DAB42 /* Main.storyboard */,
 				E5E58B0A23AB528A009DAB42 /* Assets.xcassets */,
 				E5E58B0C23AB528A009DAB42 /* LaunchScreen.storyboard */,
@@ -135,6 +138,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5E58B1623AB6915009DAB42 /* UIColor+theme.swift in Sources */,
 				E5E58B0623AB5287009DAB42 /* ViewController.swift in Sources */,
 				E5E58B0423AB5287009DAB42 /* AppDelegate.swift in Sources */,
 			);
