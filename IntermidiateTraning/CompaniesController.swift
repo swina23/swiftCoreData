@@ -22,17 +22,6 @@ class CompaniesController: UITableViewController, CreateCampanyControllerDelegat
     private var companies = [Company]() // empty array
     
     func fetchCompanies() {
-        // atempt my coredata fetch somehow...
-        // initialize coredata stack
-        // initialization of our coredata stack
-//        let persistentContainer = NSPersistentContainer(name: "intermidiateTrainingModels")
-//        persistentContainer.loadPersistentStores { (storeDescription, err) in
-//            if let err = err {
-//                fatalError("Loading of store failed:  \(err)")
-//            }
-//        }
-//
-//        let context = persistentContainer.viewContext
 
         let context = CoreDataManager.shared.persistentContainer.viewContext
         
@@ -53,6 +42,7 @@ class CompaniesController: UITableViewController, CreateCampanyControllerDelegat
         
         
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
