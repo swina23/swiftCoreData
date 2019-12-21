@@ -8,21 +8,22 @@
 
 import UIKit
 
-class CompaniesController: UITableViewController {
-
+class CompaniesController: UITableViewController, CreateCampanyControllerDelegate {
+    
+    func didAddCompany(company: Company) {
+        //1 modify your array
+        companies.append(company)
+        //2 insert a new index path into tableview
+        let newIndexPath = IndexPath(row: companies.count - 1 , section: 0)
+        tableView.insertRows(at: [newIndexPath], with: .automatic)
+    }
+    
     var companies = [
             Company(name: "Apple", founded: Date()),
             Company(name: "Google", founded: Date()),
             Company(name: "Facebook", founded: Date())
     ]
     
-    func addCompany(conpany: Company) {
-        //1 modify your array
-        companies.append(conpany)
-        //2 insert a new index path into tableview
-        let newIndexPath = IndexPath(row: companies.count - 1 , section: 0)
-        tableView.insertRows(at: [newIndexPath], with: .automatic)
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -46,7 +47,7 @@ class CompaniesController: UITableViewController {
         
         let createCompanyController = CreateCompanyController()
         let navController = CustomNavigationController(rootViewController: createCompanyController)
-        createCompanyController.companiesController = self
+        createCompanyController.delegate = self
         
         present(navController, animated: true, completion: nil)
     }
