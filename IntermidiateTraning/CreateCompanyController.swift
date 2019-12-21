@@ -73,8 +73,6 @@ class CreateCompanyController: UIViewController {
     @objc func handleSave() {
         print("save data")
         
-        dismiss(animated: true, completion: nil)
-        
         dismiss(animated: true) {
             guard let name = self.nameTextField.text else { return }
             let company = Company(name: name, founded: Date())
