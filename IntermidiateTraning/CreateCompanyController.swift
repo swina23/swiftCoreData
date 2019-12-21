@@ -17,6 +17,7 @@ class CreateCompanyController: UIViewController {
         label.text = "Name"
         // enable auto layout
         label.translatesAutoresizingMaskIntoConstraints = false
+        
         return label
     }()
     
@@ -56,7 +57,6 @@ class CreateCompanyController: UIViewController {
         nameLabel.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         nameLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16).isActive = true
         nameLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
-//        nameLabel.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         nameLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         view.addSubview(nameTextField)
@@ -77,12 +77,8 @@ class CreateCompanyController: UIViewController {
         
         dismiss(animated: true) {
             guard let name = self.nameTextField.text else { return }
-            
             let company = Company(name: name, founded: Date())
-            
             self.companiesController?.addCompany(conpany: company) 
         }
-        
     }
-
 }

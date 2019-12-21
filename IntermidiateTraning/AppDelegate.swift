@@ -21,7 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         UINavigationBar.appearance().tintColor = .white
@@ -35,7 +34,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         
         let conpaniesController = CompaniesController()
-//        dummyViewcontroller.view.backgroundColor = .blue
         let navController = CustomNavigationController(rootViewController: conpaniesController)
         window?.rootViewController = navController
         

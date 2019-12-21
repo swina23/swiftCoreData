@@ -17,8 +17,6 @@ class CompaniesController: UITableViewController {
     ]
     
     func addCompany(conpany: Company) {
-//        let tesla = Company(name: "Tesla", founded: Date())
-        
         //1 modify your array
         companies.append(conpany)
         //2 insert a new index path into tableview
@@ -29,8 +27,6 @@ class CompaniesController: UITableViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .white
-        
-//        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "test add", style: .plain, target: self, action: #selector(addCompany))
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(handleAddConpany))
         
@@ -49,14 +45,10 @@ class CompaniesController: UITableViewController {
         print("add company...")
         
         let createCompanyController = CreateCompanyController()
-        
         let navController = CustomNavigationController(rootViewController: createCompanyController)
-        
         createCompanyController.companiesController = self
         
         present(navController, animated: true, completion: nil)
-        
-        
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -71,14 +63,13 @@ class CompaniesController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath)
-        
         cell.backgroundColor = .tealColor
         
         let company = companies[indexPath.row]
-        
         cell.textLabel?.text = company.name
         cell.textLabel?.textColor = .white
         cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        
         return cell
     }
     
