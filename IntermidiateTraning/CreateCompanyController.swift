@@ -18,8 +18,6 @@ protocol CreateCampanyControllerDelegate {
 class CreateCompanyController: UIViewController {
     
     var delegate: CreateCampanyControllerDelegate?
-    // use ↑ insted ↓
-//    var companiesController: CompaniesController?
     
     let nameLabel: UILabel = {
         let label = UILabel()
@@ -80,24 +78,20 @@ class CreateCompanyController: UIViewController {
     }
     
     @objc func handleSave() {
-        print("save data")
+        print("Tring to save company...")
         
-        // initialize coredata stack
-        // initialization of our coredata stack
-        let persistentContainer = NSPersistentContainer(name: "intermidiateTrainingModels")
-        persistentContainer.loadPersistentStores { (storeDescription, err) in
-            if let err = err {
-                fatalError("Loading of store failed:  \(err)")
-            }
-        }
-        
-        let context = persistentContainer.viewContext
+        let context = CoreDataManager.shared.persistentContainer.viewContext
         let company = NSEntityDescription.insertNewObject(forEntityName: "Company", into: context)
         company.setValue(nameTextField.text, forKey: "name")
         
         // perform the save
         do {
             try context.save()
+            
+            // success
+            dismiss(animated: true) {
+                self.delegate?.didAddCompany(company: company as! Company)
+            }
         } catch let saveErr {
             print("fale to save company: ", saveErr)
         }
