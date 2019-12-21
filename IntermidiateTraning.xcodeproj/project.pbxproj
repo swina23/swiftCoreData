@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E520C38C23ADD4C300647817 /* intermidiateTrainingModels.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E520C38A23ADD4C200647817 /* intermidiateTrainingModels.xcdatamodeld */; };
 		E58EA8E523AB70A500E86193 /* Company .swift in Sources */ = {isa = PBXBuildFile; fileRef = E58EA8E423AB70A500E86193 /* Company .swift */; };
 		E58EA8E723AB76D200E86193 /* CreateCompanyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58EA8E623AB76D200E86193 /* CreateCompanyController.swift */; };
 		E5E58B0423AB5287009DAB42 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E58B0323AB5287009DAB42 /* AppDelegate.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E520C38B23ADD4C300647817 /* intermidiateTrainingModels.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = intermidiateTrainingModels.xcdatamodel; sourceTree = "<group>"; };
 		E58EA8E423AB70A500E86193 /* Company .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Company .swift"; sourceTree = "<group>"; };
 		E58EA8E623AB76D200E86193 /* CreateCompanyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCompanyController.swift; sourceTree = "<group>"; };
 		E5E58B0023AB5287009DAB42 /* IntermidiateTraning.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IntermidiateTraning.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -65,6 +67,7 @@
 				E58EA8E623AB76D200E86193 /* CreateCompanyController.swift */,
 				E58EA8E423AB70A500E86193 /* Company .swift */,
 				E5E58B1523AB6915009DAB42 /* UIColor+theme.swift */,
+				E520C38A23ADD4C200647817 /* intermidiateTrainingModels.xcdatamodeld */,
 				E5E58B0723AB5287009DAB42 /* Main.storyboard */,
 				E5E58B0A23AB528A009DAB42 /* Assets.xcassets */,
 				E5E58B0C23AB528A009DAB42 /* LaunchScreen.storyboard */,
@@ -148,6 +151,7 @@
 				E5E58B1623AB6915009DAB42 /* UIColor+theme.swift in Sources */,
 				E58EA8E723AB76D200E86193 /* CreateCompanyController.swift in Sources */,
 				E5E58B0623AB5287009DAB42 /* CompaniesController.swift in Sources */,
+				E520C38C23ADD4C300647817 /* intermidiateTrainingModels.xcdatamodeld in Sources */,
 				E5E58B0423AB5287009DAB42 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -348,6 +352,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		E520C38A23ADD4C200647817 /* intermidiateTrainingModels.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				E520C38B23ADD4C300647817 /* intermidiateTrainingModels.xcdatamodel */,
+			);
+			currentVersion = E520C38B23ADD4C300647817 /* intermidiateTrainingModels.xcdatamodel */;
+			path = intermidiateTrainingModels.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = E5E58AF823AB5287009DAB42 /* Project object */;
 }

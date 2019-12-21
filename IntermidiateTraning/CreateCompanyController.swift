@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 // Custom Delegation
 
@@ -81,11 +82,24 @@ class CreateCompanyController: UIViewController {
     @objc func handleSave() {
         print("save data")
         
-        dismiss(animated: true) {
-            guard let name = self.nameTextField.text else { return }
-            let company = Company(name: name, founded: Date())
-         // self.companiesController?.addCompany(conpany: company)
-            self.delegate?.didAddCompany(company: company)
+        // initialize coredata stack
+        // initialization of our coredata stack
+        let persistentContainer = NSPersistentContainer(name: "intermidiateTrainingModels")
+        persistentContainer.loadPersistentStores { (storeDescription, err) in
+            if let err = err {
+                fatalError("Loading of store failed:  \(err)")
+            }
+        }
+        
+        let context = persistentContainer.viewContext
+        let company = NSEntityDescription.insertNewObject(forEntityName: "Company", into: context)
+        company.setValue(nameTextField.text, forKey: "name")
+        
+        // perform the save
+        do {
+            try context.save()
+        } catch let saveErr {
+            print("fale to save company: ", saveErr)
         }
     }
 }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class CompaniesController: UITableViewController, CreateCampanyControllerDelegate {
     
@@ -18,10 +19,38 @@ class CompaniesController: UITableViewController, CreateCampanyControllerDelegat
         tableView.insertRows(at: [newIndexPath], with: .automatic)
     }
     
-    var companies = [Company]() // empty array
+    private var companies = [Company]() // empty array
     
+    func fetchCompanies() {
+        // atempt my coredata fetch somehow...
+        // initialize coredata stack
+        // initialization of our coredata stack
+        let persistentContainer = NSPersistentContainer(name: "intermidiateTrainingModels")
+        persistentContainer.loadPersistentStores { (storeDescription, err) in
+            if let err = err {
+                fatalError("Loading of store failed:  \(err)")
+            }
+        }
+        
+        let context = persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<Company>(entityName: "Company")
+        
+        do {
+             let companies = try context.fetch(fetchRequest)
+            companies.forEach { (company) in
+                print(company.name ?? "")
+            }
+        } catch let fetchErr {
+            print("Failed to fetch companeies: ", fetchErr)
+        }
+        
+        
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        fetchCompanies()
         
         view.backgroundColor = .white
         
