@@ -21,6 +21,32 @@ class CompaniesController: UITableViewController, CreateCampanyControllerDelegat
     
     private var companies = [Company]() // empty array
     
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { (_, indexPath) in
+            let company = self.companies[indexPath.row]
+            print("Attempting to delete company: ", company.name ?? "")
+            
+            // 1. remove company from our tableview
+            self.companies.remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            
+            // 2. delete company from coredata
+            let context = CoreDataManager.shared.persistentContainer.viewContext
+            context.delete(company)
+            do {
+                try context.save()
+            } catch let saveError {
+                print("Failed to dalete company", saveError)
+            }
+        }
+        
+        let editAction = UITableViewRowAction(style: .normal, title: "Edit") { (_, idndexPath) in
+            print("Editing company...")
+        }
+        return [deleteAction, editAction]
+    }
+    
     func fetchCompanies() {
 
         let context = CoreDataManager.shared.persistentContainer.viewContext
