@@ -18,11 +18,7 @@ class CompaniesController: UITableViewController, CreateCampanyControllerDelegat
         tableView.insertRows(at: [newIndexPath], with: .automatic)
     }
     
-    var companies = [
-            Company(name: "Apple", founded: Date()),
-            Company(name: "Google", founded: Date()),
-            Company(name: "Facebook", founded: Date())
-    ]
+    var companies = [Company]() // empty array
     
     override func viewDidLoad() {
         super.viewDidLoad()
