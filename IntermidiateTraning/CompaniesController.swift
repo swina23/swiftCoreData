@@ -11,6 +11,15 @@ import CoreData
 
 class CompaniesController: UITableViewController, CreateCampanyControllerDelegate {
     
+    func didEditCompany(company: Company) {
+        // update my table somehow
+        
+        let row = companies.firstIndex(of: company)
+        let reloadIndexPath = IndexPath(row: row!, section: 0)
+        tableView.reloadRows(at: [reloadIndexPath], with: .middle)
+    }
+    
+    
     func didAddCompany(company: Company) {
         //1 modify your array
         companies.append(company)
@@ -40,11 +49,23 @@ class CompaniesController: UITableViewController, CreateCampanyControllerDelegat
                 print("Failed to dalete company", saveError)
             }
         }
+        deleteAction.backgroundColor = .lightRed
         
-        let editAction = UITableViewRowAction(style: .normal, title: "Edit") { (_, idndexPath) in
-            print("Editing company...")
-        }
+        let editAction = UITableViewRowAction(style: .normal, title: "Edit", handler: editHandlerFunction)
+        
+        editAction.backgroundColor = .darkBlue
         return [deleteAction, editAction]
+    }
+
+    private func editHandlerFunction(action: UITableViewRowAction, indexPath: IndexPath) {
+        print("Editing company in separate function")
+        let editCompanyController = CreateCompanyController()
+        editCompanyController.delegate = self
+        // company is not nil here
+        editCompanyController.company = companies[indexPath.row]
+        
+        let navController = CustomNavigationController(rootViewController: editCompanyController)
+        present(navController, animated: true, completion: nil)
     }
     
     func fetchCompanies() {
@@ -85,8 +106,6 @@ class CompaniesController: UITableViewController, CreateCampanyControllerDelegat
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
         
         navigationItem.title = "Conpanies"
-        
-        
     }
     
     @objc func handleAddConpany() {
