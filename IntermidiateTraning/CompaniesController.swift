@@ -13,7 +13,6 @@ class CompaniesController: UITableViewController, CreateCampanyControllerDelegat
     
     func didEditCompany(company: Company) {
         // update my table somehow
-        
         let row = companies.firstIndex(of: company)
         let reloadIndexPath = IndexPath(row: row!, section: 0)
         tableView.reloadRows(at: [reloadIndexPath], with: .middle)
@@ -133,7 +132,17 @@ class CompaniesController: UITableViewController, CreateCampanyControllerDelegat
         cell.backgroundColor = .tealColor
         
         let company = companies[indexPath.row]
-        cell.textLabel?.text = company.name
+        
+        if let name = company.name, let founded = company.founded {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MMM dd, yyyy"
+            let foundedDateStrng = dateFormatter.string(from: founded)
+            let dateString = "\(name) - Founded: \(foundedDateStrng)"
+            cell.textLabel?.text = dateString
+        } else {
+            cell.textLabel?.text = company.name
+        }
+        
         cell.textLabel?.textColor = .white
         cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         
