@@ -170,7 +170,6 @@ class CreateCompanyController: UIViewController, UINavigationControllerDelegate,
             company.setValue(imageData, forKey: "imageData")
         }
         
-        
         // perform the save
         do {
             try context.save()
