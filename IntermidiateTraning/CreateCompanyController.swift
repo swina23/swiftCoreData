@@ -10,7 +10,6 @@ import UIKit
 import CoreData
 
 // Custom Delegation
-
 protocol CreateCampanyControllerDelegate {
     func didAddCompany(company: Company)
     func didEditCompany(company: Company)
