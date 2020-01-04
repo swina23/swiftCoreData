@@ -162,9 +162,7 @@ class CreateCompanyController: UIViewController, UINavigationControllerDelegate,
         company.setValue(datePicker.date, forKey: "founded")
         
         if let companyImage = companyImageView.image {
-//            let image = UIImage()
             let imageData =  companyImage.jpegData(compressionQuality: 0.8)
-//            let imageData =  UIImageJPEGRepresentation(companyImage, 0.8)
             
             company.setValue(imageData, forKey: "imageData")
         }
