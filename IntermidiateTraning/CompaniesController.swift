@@ -92,6 +92,7 @@ class CompaniesController: UITableViewController, CreateCampanyControllerDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(handleReset))
         fetchCompanies()
         
         view.backgroundColor = .white
@@ -105,6 +106,54 @@ class CompaniesController: UITableViewController, CreateCampanyControllerDelegat
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
         
         navigationItem.title = "Conpanies"
+    }
+    
+    @objc private func handleReset() {
+        print("Attenpt to delete all coredata objects")
+        
+        let context = CoreDataManager.shared.persistentContainer.viewContext
+        
+//        companies.forEach { (company) in
+//            context.delete(company)
+//        }
+        
+        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: Company.fetchRequest())
+        do {
+            try context.execute(batchDeleteRequest)
+            // upon delation from core data succeeded
+            var indexPathsToRemove = [IndexPath]()
+            
+                for (index, _) in companies.enumerated() {
+                    let indexPath = IndexPath(row: index, section: 0)
+                    indexPathsToRemove.append(indexPath)
+                }
+                companies.removeAll()
+                tableView.deleteRows(at: indexPathsToRemove, with: .left)
+//            companies.forEach { (company) in
+//                companies.lastIndex(of: <#T##Company#>)
+                // but this loop does'nt provide us with the row number.
+                
+//            }
+            
+            
+//            companies.removeAll()
+//            tableView.reloadData()
+        } catch let delerror {
+            print("Fail to delete coredata objects", delerror)
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let label = UILabel()
+        label.text = "No companies available..."
+        label.textColor = .white
+        label.textAlignment = .center
+        label.font = UIFont.boldSystemFont(ofSize: 16)
+        return label
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return companies.count == 0 ? 150 : 0
     }
     
     @objc func handleAddConpany() {
