@@ -143,6 +143,17 @@ class CompaniesController: UITableViewController, CreateCampanyControllerDelegat
         }
     }
     
+    @objc func handleAddConpany() {
+        print("add company...")
+        
+        let createCompanyController = CreateCompanyController()
+        let navController = CustomNavigationController(rootViewController: createCompanyController)
+        createCompanyController.delegate = self
+        
+        present(navController, animated: true, completion: nil)
+    }
+    
+    // tableview delegate methods
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let label = UILabel()
         label.text = "No companies available..."
@@ -155,17 +166,7 @@ class CompaniesController: UITableViewController, CreateCampanyControllerDelegat
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return companies.count == 0 ? 150 : 0
     }
-    
-    @objc func handleAddConpany() {
-        print("add company...")
-        
-        let createCompanyController = CreateCompanyController()
-        let navController = CustomNavigationController(rootViewController: createCompanyController)
-        createCompanyController.delegate = self
-        
-        present(navController, animated: true, completion: nil)
-    }
-    
+ 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView()
         view.backgroundColor = .lightBlue
