@@ -153,7 +153,7 @@ class CompaniesController: UITableViewController, CreateCampanyControllerDelegat
         present(navController, animated: true, completion: nil)
     }
     
-    // tableview delegate methods
+    // MARK: - tableview delegate methods
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let label = UILabel()
         label.text = "No companies available..."
