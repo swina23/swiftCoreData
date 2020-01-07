@@ -11,13 +11,90 @@ import CoreData
 
 class CompaniesController: UITableViewController, CreateCampanyControllerDelegate {
     
-    func didEditCompany(company: Company) {
-        // update my table somehow
-        let row = companies.firstIndex(of: company)
-        let reloadIndexPath = IndexPath(row: row!, section: 0)
-        tableView.reloadRows(at: [reloadIndexPath], with: .middle)
+    private var companies = [Company]() // empty array
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(handleReset))
+        fetchCompanies()
+        
+        view.backgroundColor = .white
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(handleAddConpany))
+        
+        tableView.backgroundColor = .darkBlue
+        //        tableView.separatorStyle = .none
+        tableView.separatorColor = .white
+        tableView.tableFooterView = UIView()
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
+        
+        navigationItem.title = "Conpanies"
     }
     
+    @objc private func handleReset() {
+        print("Attenpt to delete all coredata objects")
+        
+        let context = CoreDataManager.shared.persistentContainer.viewContext
+        
+        //        companies.forEach { (company) in
+        //            context.delete(company)
+        //        }
+        
+        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: Company.fetchRequest())
+        do {
+            try context.execute(batchDeleteRequest)
+            // upon delation from core data succeeded
+            var indexPathsToRemove = [IndexPath]()
+            
+            for (index, _) in companies.enumerated() {
+                let indexPath = IndexPath(row: index, section: 0)
+                indexPathsToRemove.append(indexPath)
+            }
+            companies.removeAll()
+            tableView.deleteRows(at: indexPathsToRemove, with: .left)
+            //            companies.forEach { (company) in
+            //                companies.lastIndex(of: <#T##Company#>)
+            // but this loop does'nt provide us with the row number.
+            
+            //            }
+            
+            
+            //            companies.removeAll()
+            //            tableView.reloadData()
+        } catch let delerror {
+            print("Fail to delete coredata objects", delerror)
+        }
+    }
+    
+    func fetchCompanies() {
+        let context = CoreDataManager.shared.persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<Company>(entityName: "Company")
+        
+        do {
+            let companies = try context.fetch(fetchRequest)
+            companies.forEach { (company) in
+                print(company.name ?? "")
+            }
+            
+            self.companies = companies
+            self.tableView.reloadData()
+            
+        } catch let fetchErr {
+            print("Failed to fetch companeies: ", fetchErr)
+        }
+    }
+    
+    @objc func handleAddConpany() {
+        print("add company...")
+        
+        let createCompanyController = CreateCompanyController()
+        let navController = CustomNavigationController(rootViewController: createCompanyController)
+        createCompanyController.delegate = self
+        
+        present(navController, animated: true, completion: nil)
+    }
     
     func didAddCompany(company: Company) {
         //1 modify your array
@@ -27,8 +104,25 @@ class CompaniesController: UITableViewController, CreateCampanyControllerDelegat
         tableView.insertRows(at: [newIndexPath], with: .automatic)
     }
     
-    private var companies = [Company]() // empty array
+    func didEditCompany(company: Company) {
+        // update my table somehow
+        let row = companies.firstIndex(of: company)
+        let reloadIndexPath = IndexPath(row: row!, section: 0)
+        tableView.reloadRows(at: [reloadIndexPath], with: .middle)
+    }
+
+    private func editHandlerFunction(action: UITableViewRowAction, indexPath: IndexPath) {
+        print("Editing company in separate function")
+        let editCompanyController = CreateCompanyController()
+        editCompanyController.delegate = self
+        // company is not nil here
+        editCompanyController.company = companies[indexPath.row]
+        
+        let navController = CustomNavigationController(rootViewController: editCompanyController)
+        present(navController, animated: true, completion: nil)
+    }
     
+    // MARK: - tableview delegate methods
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
         let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { (_, indexPath) in
@@ -55,105 +149,7 @@ class CompaniesController: UITableViewController, CreateCampanyControllerDelegat
         editAction.backgroundColor = .darkBlue
         return [deleteAction, editAction]
     }
-
-    private func editHandlerFunction(action: UITableViewRowAction, indexPath: IndexPath) {
-        print("Editing company in separate function")
-        let editCompanyController = CreateCompanyController()
-        editCompanyController.delegate = self
-        // company is not nil here
-        editCompanyController.company = companies[indexPath.row]
-        
-        let navController = CustomNavigationController(rootViewController: editCompanyController)
-        present(navController, animated: true, completion: nil)
-    }
     
-    func fetchCompanies() {
-
-        let context = CoreDataManager.shared.persistentContainer.viewContext
-        
-        let fetchRequest = NSFetchRequest<Company>(entityName: "Company")
-        
-        do {
-             let companies = try context.fetch(fetchRequest)
-            companies.forEach { (company) in
-                print(company.name ?? "")
-            }
-            
-            self.companies = companies
-            self.tableView.reloadData()
-            
-        } catch let fetchErr {
-            print("Failed to fetch companeies: ", fetchErr)
-        }
-        
-        
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(handleReset))
-        fetchCompanies()
-        
-        view.backgroundColor = .white
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(handleAddConpany))
-        
-        tableView.backgroundColor = .darkBlue
-//        tableView.separatorStyle = .none
-        tableView.separatorColor = .white
-        tableView.tableFooterView = UIView()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
-        
-        navigationItem.title = "Conpanies"
-    }
-    
-    @objc private func handleReset() {
-        print("Attenpt to delete all coredata objects")
-        
-        let context = CoreDataManager.shared.persistentContainer.viewContext
-        
-//        companies.forEach { (company) in
-//            context.delete(company)
-//        }
-        
-        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: Company.fetchRequest())
-        do {
-            try context.execute(batchDeleteRequest)
-            // upon delation from core data succeeded
-            var indexPathsToRemove = [IndexPath]()
-            
-                for (index, _) in companies.enumerated() {
-                    let indexPath = IndexPath(row: index, section: 0)
-                    indexPathsToRemove.append(indexPath)
-                }
-                companies.removeAll()
-                tableView.deleteRows(at: indexPathsToRemove, with: .left)
-//            companies.forEach { (company) in
-//                companies.lastIndex(of: <#T##Company#>)
-                // but this loop does'nt provide us with the row number.
-                
-//            }
-            
-            
-//            companies.removeAll()
-//            tableView.reloadData()
-        } catch let delerror {
-            print("Fail to delete coredata objects", delerror)
-        }
-    }
-    
-    @objc func handleAddConpany() {
-        print("add company...")
-        
-        let createCompanyController = CreateCompanyController()
-        let navController = CustomNavigationController(rootViewController: createCompanyController)
-        createCompanyController.delegate = self
-        
-        present(navController, animated: true, completion: nil)
-    }
-    
-    // MARK: - tableview delegate methods
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let label = UILabel()
         label.text = "No companies available..."
