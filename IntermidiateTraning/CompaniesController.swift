@@ -16,15 +16,16 @@ class CompaniesController: UITableViewController, CreateCampanyControllerDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(handleReset))
-        fetchCompanies()
-        
         view.backgroundColor = .white
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(handleReset))
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(handleAddConpany))
         
+        fetchCompanies()
+        
         tableView.backgroundColor = .darkBlue
-        //        tableView.separatorStyle = .none
+//                tableView.separatorStyle = .none
         tableView.separatorColor = .white
         tableView.tableFooterView = UIView()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
