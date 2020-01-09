@@ -25,7 +25,6 @@ class CompaniesController: UITableViewController, CreateCampanyControllerDelegat
         fetchCompanies()
         
         tableView.backgroundColor = .darkBlue
-//                tableView.separatorStyle = .none
         tableView.separatorColor = .white
         tableView.tableFooterView = UIView()
         tableView.register(CompanyCell.self, forCellReuseIdentifier: "cellId")
@@ -37,10 +36,6 @@ class CompaniesController: UITableViewController, CreateCampanyControllerDelegat
         print("Attenpt to delete all coredata objects")
         
         let context = CoreDataManager.shared.persistentContainer.viewContext
-        
-        //        companies.forEach { (company) in
-        //            context.delete(company)
-        //        }
         
         let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: Company.fetchRequest())
         do {
@@ -54,15 +49,6 @@ class CompaniesController: UITableViewController, CreateCampanyControllerDelegat
             }
             companies.removeAll()
             tableView.deleteRows(at: indexPathsToRemove, with: .left)
-            //            companies.forEach { (company) in
-            //                companies.lastIndex(of: <#T##Company#>)
-            // but this loop does'nt provide us with the row number.
-            
-            //            }
-            
-            
-            //            companies.removeAll()
-            //            tableView.reloadData()
         } catch let delerror {
             print("Fail to delete coredata objects", delerror)
         }

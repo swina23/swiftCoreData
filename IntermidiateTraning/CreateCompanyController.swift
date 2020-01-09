@@ -25,7 +25,6 @@ class CreateCompanyController: UIViewController, UINavigationControllerDelegate,
                 companyImageView.image = UIImage(data: imageData)
                 setupCircularImageStyle()
             }
-            
             guard let founded = company?.founded else { return }
             datePicker.date = founded
         }
@@ -78,7 +77,6 @@ class CreateCompanyController: UIViewController, UINavigationControllerDelegate,
     let nameLabel: UILabel = {
         let label = UILabel()
         label.text = "Name"
-        // enable auto layout
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
