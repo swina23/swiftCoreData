@@ -108,7 +108,7 @@ class CreateCompanyController: UIViewController, UINavigationControllerDelegate,
         
         setupUI()
         
-        setupCancelBcutton()
+        setupCancelButton()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(handleSave))
         
         view.backgroundColor = .darkBlue
