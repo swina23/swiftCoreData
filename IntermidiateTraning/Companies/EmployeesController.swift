@@ -22,7 +22,6 @@ class EmployeesController: UITableViewController {
         tableView.backgroundColor = .darkBlue
         
         setupPlusButtonInNavBar(selector: #selector(handleAdd))
-
     }
     
     @objc private func handleAdd()  {

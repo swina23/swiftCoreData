@@ -61,12 +61,12 @@
 			isa = PBXGroup;
 			children = (
 				E5E58B0523AB5287009DAB42 /* CompaniesController.swift */,
+				E58EA8E623AB76D200E86193 /* CreateCompanyController.swift */,
+				E5B1BA5023C84F420046335D /* CreateEmployeeController.swift */,
 				E574262623C6001B00E6002E /* CompanyCell.swift */,
 				E5B1BA4723C83DAD0046335D /* CompaniesController+CreateCompany.swift */,
 				E5B1BA4923C840110046335D /* CompaniesController+UITableView.swift */,
 				E5B1BA4B23C847240046335D /* EmployeesController.swift */,
-				E58EA8E623AB76D200E86193 /* CreateCompanyController.swift */,
-				E5B1BA5023C84F420046335D /* CreateEmployeeController.swift */,
 			);
 			path = Companies;
 			sourceTree = "<group>";
