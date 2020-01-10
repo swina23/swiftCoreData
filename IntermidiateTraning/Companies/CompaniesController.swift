@@ -19,7 +19,8 @@ class CompaniesController: UITableViewController {
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(handleReset))
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(handleAddConpany))
+        
+        setupPlusButtonInNavBar(selector: #selector(handleAddConpany))
         
         self.companies = CoreDataManager.shared.fetchCompanies()
         
