@@ -4,7 +4,6 @@
 //
 //  Created by tomo on 2019/12/19.
 //  Copyright © 2019 tomo. All rights reserved.
-// git test
 
 import UIKit
 import CoreData
