@@ -9,7 +9,12 @@
 import UIKit
 import CoreData
 
-class EmployeesController: UITableViewController {
+class EmployeesController: UITableViewController, CreateEmployeeControllerDelegate {
+    func didAddEmployee(employee: Employee) {
+        employees.append(employee)
+        tableView.reloadData()
+    }
+    
     
     var company: Company?
     
@@ -18,9 +23,6 @@ class EmployeesController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationItem.title = company?.name
-        
-        fetchEmployees()
-        
     }
     
     private func fetchEmployees() {
@@ -62,6 +64,9 @@ class EmployeesController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        fetchEmployees()
+        
         tableView.backgroundColor = .darkBlue
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
@@ -72,6 +77,7 @@ class EmployeesController: UITableViewController {
     @objc private func handleAdd()  {
         print("trying to add employee")
         let createEmployeeController = CreateEmployeeController()
+        createEmployeeController.delegate = self
         let navController = UINavigationController(rootViewController: createEmployeeController)
         
         present(navController, animated: true, completion: nil)
